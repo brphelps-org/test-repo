@@ -1,0 +1,27 @@
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+jobs:
+  snapshot_diff_job:
+    runs-on: ubuntu-latest
+    name: A job to check the snapshot diff
+    steps:
+    # Check out the repository to be scanned
+      - name: Checkout
+        uses: actions/checkout@v2
+    # (optional) run whatever build step you want
+      - name: Run cibuild script
+        run: ./script/cibuild
+      # check out the scan action
+      - name: Fetch Dependency Detector Action
+        uses: actions/checkout@v2
+        with:
+          repository: github/dependency-detection
+          ref: releases/v1
+          token: ${{ secrets.REPO_PAT }}
+          path: .github/actions/dependency-detection
+      - name: Run Dependency Detection
+        uses: ./.github/actions/dependency-detection
+        with:
+          token: ${{ github.token }}
