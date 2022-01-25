@@ -10,6 +10,8 @@ jobs:
     # Check out the repository to be scanned
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Run cibuild script
+        run: ./script/cibuild
       # check out the scan action
       - name: Fetch Dependency Detector Action
         uses: actions/checkout@v2

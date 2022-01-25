@@ -1,0 +1,8 @@
+#!/bin/bash
+
+npm install
+npm install react --save-exact
+
+if [ -z "$GOOD_IDEAS_ONLY" ]; then
+  npm install lodash@0.4.1 --save-exact
+fi
